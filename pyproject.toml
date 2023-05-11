@@ -5,7 +5,7 @@ description = "Add a short description here"
 authors = [
     { name = "specv", email = "61646426+specv@users.noreply.github.com" }
 ]
-dependencies = []
+dependencies = ["textual~=0.24.1"]
 readme = "README.md"
 requires-python = ">= 3.8"
 
@@ -15,3 +15,4 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
+dev-dependencies = ["textual[dev]~=0.24.1"]
