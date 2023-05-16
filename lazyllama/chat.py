@@ -9,11 +9,10 @@ from threading import Thread
 from queue import Queue
 
 
-class StreamingChat(BaseCallbackHandler):
+class QueueCallbackHandler(BaseCallbackHandler):
 
-    def __init__(self, message):
-        self.message = message
-        self.queue = Queue()
+    def __init__(self, queue=None):
+        self.queue = queue or Queue()
 
     def on_chat_model_start(self, *args, **kwargs):
         pass
@@ -23,6 +22,13 @@ class StreamingChat(BaseCallbackHandler):
 
     def on_llm_end(self, *args, **kwargs):
         self.queue.put(None)
+
+
+class StreamingChat:
+
+    def __init__(self, message):
+        self.message = message
+        self.queue = Queue()
 
     def __iter__(self):
         Thread(target=self._generate).start()
@@ -36,7 +42,7 @@ class StreamingChat(BaseCallbackHandler):
     def _generate(self):
         ChatOpenAI(streaming=True)(
             messages=[HumanMessage(content=self.message)],
-            callbacks=[self],
+            callbacks=[QueueCallbackHandler(queue=self.queue)],
         )
 
 
