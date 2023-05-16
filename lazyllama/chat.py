@@ -5,28 +5,44 @@ from rich.console import Console
 from rich.live import Live
 from rich.markdown import Markdown
 
+from threading import Thread
+from queue import Queue
 
-class RichLiveMarkdownHandler(BaseCallbackHandler):
-    def __init__(self):
-        self.tokens = ''
-        self.live = Live(console=Console(), refresh_per_second=10)
+
+class StreamingChat(BaseCallbackHandler):
+
+    def __init__(self, message):
+        self.message = message
+        self.queue = Queue()
 
     def on_chat_model_start(self, *args, **kwargs):
-        self.live.start()
-
-    def on_llm_start(self, *args, **kwargs):
         pass
 
-    def on_llm_end(self, *args, **kwargs):
-        self.live.stop()
-
     def on_llm_new_token(self, token, **kwargs):
-        self.tokens += token
-        self.live.update(Markdown(self.tokens))
+        self.queue.put(token)
+
+    def on_llm_end(self, *args, **kwargs):
+        self.queue.put(None)
+
+    def __iter__(self):
+        Thread(target=self._generate).start()
+
+        while True:
+            if (token := self.queue.get()) is None:
+                break
+            else:
+                yield token
+
+    def _generate(self):
+        ChatOpenAI(streaming=True)(
+            messages=[HumanMessage(content=self.message)],
+            callbacks=[self],
+        )
 
 
 def chat(message):
-    ChatOpenAI(streaming=True)(
-        messages=[HumanMessage(content=message)],
-        callbacks=[RichLiveMarkdownHandler()],
-    )
+    tokens = ''
+    with Live(console=Console(), refresh_per_second=10) as live:
+        for token in StreamingChat(message):
+            tokens += token
+            live.update(Markdown(tokens))
