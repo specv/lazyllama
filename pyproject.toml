@@ -16,3 +16,39 @@ build-backend = "hatchling.build"
 [tool.rye]
 managed = true
 dev-dependencies = ["textual[dev]~=0.24.1", "ipython~=8.12.2", "ruff~=0.0.267", "pre-commit~=3.3.1"]
+
+[tool.ruff]
+select = [
+# "ALL",
+  "S",   # flake8-bandit
+  "FBT", # flake8-boolean-trap
+  "B",   # flake8-bugbear
+  "A",   # flake8-builtins
+  "C4",  # flake8-comprehensions
+  "T10", # flake8-debugger
+  "PIE", # flake8-pie
+  "T20", # flake8-print
+  "Q",   # flake8-quotes
+  "I",   # isort
+  "C90", # mccabe complexity
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+# "D",   # pydocstyle
+  "F",   # pyflakes
+  "PGH", # pygrep-hooks
+  "UP",  # pyupgrade
+  "RUF", # ruff
+]
+line-length = 120
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "single"
+docstring-quotes = "double"
+
+[tool.ruff.isort]
+combine-as-imports = true
+
+[tool.ruff.mccabe]
+max-complexity = 6
+
