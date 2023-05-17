@@ -15,4 +15,4 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = ["textual[dev]~=0.24.1", "ipython~=8.12.2"]
+dev-dependencies = ["textual[dev]~=0.24.1", "ipython~=8.12.2", "ruff~=0.0.267", "pre-commit~=3.3.1"]
