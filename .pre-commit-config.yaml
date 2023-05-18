@@ -1,0 +1,26 @@
+exclude: |
+  (?x)^(
+      requirements.lock |
+      requirements-dev.lock
+  )$
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v3.4.0
+  hooks:
+  - id: check-case-conflict
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-added-large-files
+  - id: check-json
+  - id: check-toml
+  - id: check-yaml
+    args: [--unsafe]
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: "v0.0.267"
+  hooks:
+    - id: ruff
+      args: [--fix, --exit-non-zero-on-fix]
