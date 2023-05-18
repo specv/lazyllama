@@ -1,8 +1,9 @@
 from os import environ
 from pathlib import Path
-from pydantic import BaseSettings
-from platformdirs import user_config_path
 from typing import ClassVar
+
+from platformdirs import user_config_path
+from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):

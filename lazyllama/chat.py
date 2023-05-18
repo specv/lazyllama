@@ -1,12 +1,12 @@
+from queue import Queue
+from threading import Thread
+
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 from rich.console import Console
 from rich.live import Live
 from rich.markdown import Markdown
-
-from threading import Thread
-from queue import Queue
 
 
 class QueueCallbackHandler(BaseCallbackHandler):
