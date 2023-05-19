@@ -41,14 +41,8 @@ select = [
 ]
 line-length = 120
 
-[tool.ruff.flake8-quotes]
-inline-quotes = "single"
-multiline-quotes = "single"
-docstring-quotes = "double"
-
 [tool.ruff.isort]
 combine-as-imports = true
 
 [tool.ruff.mccabe]
 max-complexity = 6
-
