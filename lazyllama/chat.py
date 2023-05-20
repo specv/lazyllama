@@ -10,7 +10,6 @@ from rich.markdown import Markdown
 
 
 class QueueCallbackHandler(BaseCallbackHandler):
-
     def __init__(self, queue=None):
         self.queue = queue or Queue()
 
@@ -25,7 +24,6 @@ class QueueCallbackHandler(BaseCallbackHandler):
 
 
 class StreamingChat:
-
     def __init__(self, message):
         self.message = message
         self.queue = Queue()
@@ -47,7 +45,7 @@ class StreamingChat:
 
 
 def chat(message):
-    tokens = ''
+    tokens = ""
     with Live(console=Console(), refresh_per_second=10) as live:
         for token in StreamingChat(message):
             tokens += token
