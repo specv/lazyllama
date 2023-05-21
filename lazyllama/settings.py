@@ -12,9 +12,9 @@ class Settings(BaseSettings):
     app_name: ClassVar = "lazyllama"
     file_name: ClassVar = f"{app_name}.conf"
 
-    openai_api_base: str = None
-    openai_api_type: str = None
-    openai_api_version: str = None
+    openai_api_base: str | None
+    openai_api_type: str | None
+    openai_api_version: str | None
     openai_api_key: str
 
     @classmethod
