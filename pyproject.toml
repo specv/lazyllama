@@ -39,13 +39,16 @@ select = [
   "UP",  # pyupgrade
   "RUF", # ruff
 ]
-line-length = 120
+line-length = 88
 
 [tool.ruff.isort]
 combine-as-imports = true
 
 [tool.ruff.mccabe]
 max-complexity = 6
+
+[tool.black]
+line-length = 88
 
 [tool.mypy]
 strict = false
